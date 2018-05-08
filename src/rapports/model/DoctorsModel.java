@@ -27,6 +27,8 @@ public class DoctorsModel {
     {
         this.connect = connect;
     }
+    
+  //Renvoie une liste de listes avec les infos des praticiens
     public ObservableList result(){
         data = FXCollections.<ObservableList>observableArrayList();
         row = FXCollections.observableArrayList();
@@ -37,12 +39,13 @@ public class DoctorsModel {
         try (Statement state = connect.createStatement(); ResultSet result = state.executeQuery(query)){
             int i=0;
             while (result.next()){
+              //On récupère les infos dans le format souhaité
                 String nom = result.getString("PRA_NOM");
                 String prenom = result.getString("PRA_PRENOM");
                 String adresse = result.getString("PRA_ADRESSE");
                 String cp = result.getString("PRA_CP");
                 String ville = result.getString("PRA_VILLE");
-                float coeff = result.getFloat("PRA_COEFNOTORIETE");
+                float coeff = result.getFloat("PRA_COEFNOTORIETE"); //Celui là est en float pour trier dans le tableau
                 String lieu = result.getString("TYP_LIEU");
                 row.addAll(nom,prenom,adresse+" "+cp+" "+ville,coeff,lieu);
                 data.add(i,row);

@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  */
 public class Rapports extends Application
 {
-    
+    //Lancement de l'application
     @Override
     public void start(Stage stage) throws Exception
     {

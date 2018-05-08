@@ -11,7 +11,7 @@ public class Model {
     private String passwd;
     private String url;
     private String matricule;
-    private static Model model;
+    private static Model model; //Singleton
     private Connection connect; 
     private DoctorsModel doctorsModel;
     private ConnexionModel connexionModel;
@@ -30,12 +30,10 @@ public class Model {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver OK");
             
-            // Instance des objects avec connect en parametre et éxecution des requêtes
+            //Connexion à la db et instanciation du modèle de la fenêtre de connexion
             this.connect = DriverManager.getConnection(url, user, passwd);
-            this.connexionModel = new ConnexionModel(connect,url,user,passwd);
-            
+            this.connexionModel = new ConnexionModel(connect,url);
         }
-        
         catch (Exception e){
             Alert error = new Alert(Alert.AlertType.WARNING);
             error.setTitle("Erreur");
@@ -46,6 +44,8 @@ public class Model {
             e.printStackTrace();
         }
     }
+    
+    //Retourne l'unique instance du modèle
     public static Model getInstance()
     {
         if (model==null)
@@ -94,12 +94,13 @@ public class Model {
     {
         this.passwd = passwd;
     }
+    
+  //Refait la connexion avec les nouveaux user et mdp récupérés grâce au modèle de connexion
     public void setConnection()
     {
         try
         {
-            System.out.println(connect+" "+user+" "+passwd);
-            connect = DriverManager.getConnection(url,user,passwd);
+            this.connect = DriverManager.getConnection(url,user,passwd);
             this.doctorsModel = new DoctorsModel(connect);
             this.medicineModel = new MedicineModel(connect);
             this.visitorsModel = new VisitorsModel(connect);
@@ -110,10 +111,6 @@ public class Model {
         {
             e.printStackTrace();
         }
-    }
-    public void getConnection()
-    {
-        System.out.println(connect);
     }
     
     public void setMatricule(String matricule)

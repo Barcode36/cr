@@ -14,12 +14,12 @@ public class ConnexionModel {
     private String url;
     private String passwd;
     
-    // Connexion à la base de donnée
-    public ConnexionModel(Connection connect, String url, String user, String passwd){
+    public ConnexionModel(Connection connect, String url){
         this.connect = connect;
         this.url = url;
     }  
     
+    //Vérification de l'id et du mot de passe entrés et attribution du bon compte utilisateur
     public boolean connect(String id, String pw){
         query = "SELECT LOWER(TYV_LIBELLE), VIS_MATRICULE FROM type_visiteur " +
                        "INNER JOIN visiteur ON type_visiteur.TYV_CODE=visiteur.TYV_CODE " +

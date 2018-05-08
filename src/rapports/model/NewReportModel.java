@@ -40,6 +40,7 @@ public class NewReportModel {
         this.matricule = matricule;
     }
     
+  //Retourne une liste avec la liste des motifs de visite
     public ObservableList resultMotives()
     {
         query = "SELECT TYM_LIBELLE FROM type_motif";
@@ -62,16 +63,22 @@ public class NewReportModel {
         return resultMotives;
     }
     
+  //Insertion du rapport dans la DB
     public void insert()
     {
         query = "INSERT INTO rapport_visite(VIS_MATRICULE,RAP_NUM,PRA_NUM,RAP_DATE,RAP_BILAN,TYM_CODE,RAP_MOTIF,RAP_MED1,RAP_MED2) VALUES("
                 +matricule+","+num+","+numPra+","+date+","+bilan+","+numMotive+",null,"+numMed1+","+numMed2+")";
-        System.out.println(query);
-        try (Statement state = connect.createStatement()){
-        state.executeUpdate(query);}
-        catch(Exception e){e.printStackTrace();}
-
+        try (Statement state = connect.createStatement())
+        {
+            state.executeUpdate(query);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
+    
+    //Retourne une liste avec les noms des médicaments
     public ObservableList resultMeds()
     {
         query = "SELECT MED_NOMCOMMERCIAL FROM medicament";
@@ -104,6 +111,7 @@ public class NewReportModel {
         return motive;
     }
     
+   //Retourne le numéro du prochain rapport
     public int setNum()
     {
         query = "SELECT MAX(RAP_NUM) FROM rapport_visite";
@@ -135,6 +143,7 @@ public class NewReportModel {
         return this.praticien;
     }
     
+   //Retourne le numéro du praticien correspondant à ses nom et prénom
     public void setNumPra()
     {
         query = "SELECT PRA_NUM FROM praticien WHERE CONCAT(PRA_NOM,' ',PRA_PRENOM)='"+praticien+"'";
@@ -165,6 +174,7 @@ public class NewReportModel {
         return med1;
     }
     
+  //Récupère le dépôt légal du med1
     public void setNumMed1()
     {
         query = "SELECT MED_DEPOTLEGAL FROM medicament WHERE MED_NOMCOMMERCIAL='"+med1+"'";
@@ -195,6 +205,7 @@ public class NewReportModel {
         return med2;
     }
     
+  //Récupère le dépôt légal du med 2
     public void setNumMed2()
     {
         query = "SELECT MED_DEPOTLEGAL FROM medicament WHERE MED_NOMCOMMERCIAL='"+med2+"'";
@@ -234,6 +245,7 @@ public class NewReportModel {
         return date;
     }
     
+  //Récupère le numéro du motif de visite
     public void setNumMotive()
     {
         query = "SELECT TYM_CODE FROM type_motif WHERE TYM_LIBELLE='"+motive+"'";

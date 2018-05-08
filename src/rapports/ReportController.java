@@ -32,7 +32,7 @@ import rapports.model.ReportModel;
  * @author Lucille
  */
 public class ReportController implements Initializable
-{
+{ //Récupération des id des contrôles
     @FXML private Button quit;
     @FXML private Button previous;
     @FXML private Button next;
@@ -45,11 +45,14 @@ public class ReportController implements Initializable
     @FXML private TextField praticien;
     @FXML private DatePicker dateRap;
     @FXML private TextArea bilan;
+    
+  //Récupération des data du modèle
     private ObservableList<ObservableList<String>> data;
     private Model model;
     private ReportModel reportModel;
     private int index;
     
+    //Gestion du clic en fonction de l'id source
     @FXML
     public void handleButtonAction(ActionEvent event) throws IOException
     {
@@ -58,7 +61,7 @@ public class ReportController implements Initializable
             System.exit(0);
         }
         else if(event.getSource()==previous)
-        {
+        { //Affichage du rapport précédent si il y en a un
             if(index>0){
                 index--;
                 ObservableList<String> row = FXCollections.observableArrayList(data.get(index));
@@ -76,7 +79,7 @@ public class ReportController implements Initializable
             }
         }
         else if(event.getSource()==next)
-        {
+        { //Affichage du rapport suivant s'il y en a un
             if(index<data.size()-1){
                 index++;
                 ObservableList<String> row = FXCollections.observableArrayList(data.get(index));
@@ -93,7 +96,7 @@ public class ReportController implements Initializable
             }
         }
         else if(event.getSource()==back)
-        {
+        { //Retour au menu principal
             Stage stage = (Stage)back.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("view/MenuView.fxml"));
             Scene scene = new Scene(root);
@@ -101,7 +104,7 @@ public class ReportController implements Initializable
             stage.show();
         }
         else if(event.getSource()==newReport)
-        {
+        { //Ouverture d'un nouveau rapport
             Stage stage = (Stage)newReport.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("view/NewReportView.fxml"));
             Scene scene = new Scene(root);
@@ -110,6 +113,7 @@ public class ReportController implements Initializable
         }
     }
     
+    //Initialisation du contrôleur
     @Override 
     public void initialize(URL url, ResourceBundle rb)
     {
@@ -117,14 +121,18 @@ public class ReportController implements Initializable
         reportModel = model.getReportModel();
         data = reportModel.result();
         index = 0;
+        //Récupération de la liste du rapport actuel et distribution des infos dans les champs
         ObservableList<String> row = FXCollections.observableArrayList(data.get(index));
         num.setText(row.get(0));
         praticien.setText(row.get(1));
         dateRap.setValue(LocalDate.parse(row.get(2), DateTimeFormatter.ISO_DATE));
         bilan.setText(row.get(4));
+        
+        //On garde la même liste pour ne pas en créer une d'un seul item
         motive.setItems(row);
         med1.setItems(row);
         med2.setItems(row);
+        //Et on sélectionne l'item approprié
         motive.getSelectionModel().select(3);
         med1.getSelectionModel().select(5);
         med2.getSelectionModel().select(6);

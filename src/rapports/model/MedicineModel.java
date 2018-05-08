@@ -28,6 +28,7 @@ public class MedicineModel {
         this.connect = connect;
     }
     
+  //Retourne une liste avec toutes les infos des médicaments
     public ObservableList result(){
         data = FXCollections.<ObservableList<String>>observableArrayList();
         row = FXCollections.observableArrayList();
@@ -36,7 +37,7 @@ public class MedicineModel {
         try (Statement state = connect.createStatement(); ResultSet result = state.executeQuery(query)){
             int i=0;
             while (result.next())
-            {
+            { //On récupère les infos dans le format souhaité
                 String depot = result.getString("MED_DEPOTLEGAL");
                 String nomCom = result.getString("MED_NOMCOMMERCIAL");
                 String fam = result.getString("FAM_LIBELLE");

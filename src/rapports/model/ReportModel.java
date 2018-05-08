@@ -28,6 +28,8 @@ public class ReportModel {
     {
         this.connect = connect;
     }
+    
+   //Retourne une liste de listes avec toutes les infos des rapports
     public ObservableList result()
     {
         data = FXCollections.<ObservableList>observableArrayList();
@@ -41,8 +43,8 @@ public class ReportModel {
         {
             int i=0;
             while (result.next())
-            {
-                String num = result.getString("RAP_NUM");
+            { //Récupération des infos dans le format souhaité
+                String num = result.getString("RAP_NUM"); //Ca aurait pu être en int, mais je trie déjà dans la requête
                 String nom = result.getString("PRA_NOM");
                 String prenom = result.getString("PRA_PRENOM");
                 String date = result.getString("RAP_DATE");

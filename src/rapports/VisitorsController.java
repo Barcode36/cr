@@ -30,7 +30,7 @@ import rapports.model.VisitorsModel;
  * @author Lucille
  */
 public class VisitorsController implements Initializable
-{
+{ //Récupération des id des contrôles
     @FXML private Button quit;
     @FXML private Button back;
     @FXML private TableView table;
@@ -39,11 +39,12 @@ public class VisitorsController implements Initializable
     @FXML private TableColumn<ObservableList<String>, String> address;
     @FXML private TableColumn<ObservableList<String>, String> sect;
     @FXML private TableColumn<ObservableList<String>, String> lab;
+  //Récupération des data du modèle
     private ObservableList<ObservableList<String>> data;
     private Model model;
     private VisitorsModel visitorsModel;
     
-    
+    //Gestion du clic en fonction de l'id source
     @FXML
     public void handleButtonAction(ActionEvent event) throws IOException
     {
@@ -52,7 +53,7 @@ public class VisitorsController implements Initializable
             System.exit(0);
         }
         else if(event.getSource()==back)
-        {
+        { //Retour au menu principal
             Stage stage = (Stage)back.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("view/MenuView.fxml"));
             Scene scene = new Scene(root);
@@ -61,12 +62,14 @@ public class VisitorsController implements Initializable
         }
     }
     
+  //Initialisation du contrôleur et récupération des data
     @Override 
     public void initialize(URL url, ResourceBundle rb)
     {
         model = Model.getInstance();
         visitorsModel = model.getVisitorsModel();
         
+        //Affectation du type de données aux colonnes, texte, chiffre
         name.setCellValueFactory((CellDataFeatures<ObservableList<String>, String> cdf)->
             new SimpleStringProperty(cdf.getValue().get(0)));
         
@@ -84,7 +87,7 @@ public class VisitorsController implements Initializable
         
         data = visitorsModel.result();
         for(int i=0; i<data.size()-1;i++) //-1 parce que le dernier c'est swiss bourdin et on s'en fout un peu
-        {
+        { //Distribution des données dans les colonnes
             ObservableList<String> row = FXCollections.observableArrayList(data.get(i));
             table.getItems().add(row);
         }  

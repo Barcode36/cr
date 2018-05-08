@@ -29,23 +29,25 @@ import rapports.model.Model;
  */
 public class ConnexionController implements Initializable
 {
+    //Récupération des contrôles de la vue
     @FXML private TextField user;
     @FXML private PasswordField password;
     @FXML private Button submit;
     @FXML private Button quit;
     @FXML private Label error;
     private Model model;
-            
+       
+    //Gestion du clic
     @FXML
     public void handleButtonAction(ActionEvent event) throws IOException
-    {
+    { //En fonction de la source du clic, grâce à l'id du bouton, on gère l'action
         if (event.getSource()==submit)
         {
             if(!"".equals(user.getText()) && !"".equals(password.getText()))
             {
                 ConnexionModel connexionModel = model.getConnexionModel();
                 if(connexionModel.connect(user.getText(), password.getText()))
-                {
+                { //On renseigne le modèle avec les infos de connexion et on charge le menu
                     model.setUser(connexionModel.getUser());
                     model.setPasswd(connexionModel.getPasswd());
                     model.setMatricule(connexionModel.getMatricule());
@@ -74,6 +76,7 @@ public class ConnexionController implements Initializable
         }
     }
 
+    //Gestion du clavier, pour qu'on puisse se connecter en appuyant sur Enter
     @FXML
     public void handleKeyPress(KeyEvent event) throws IOException
     {
@@ -107,9 +110,11 @@ public class ConnexionController implements Initializable
             }
         }
     }
+    
+    //Méthode qui initialise le contrôleur
     @Override
     public void initialize(URL url, ResourceBundle rb)
-    {
+    { //Modèle en singleton, on récupère l'objet
         model = Model.getInstance();
     } 
 

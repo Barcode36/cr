@@ -28,6 +28,7 @@ public class VisitorsModel {
         this.connect = connect;
     }
     
+    //Retourne une liste avec toutes les data des visiteurs
     public ObservableList result(){
         data = FXCollections.<ObservableList<String>>observableArrayList();
         row = FXCollections.observableArrayList();
@@ -35,9 +36,11 @@ public class VisitorsModel {
                 "FROM visiteur "+
                 "LEFT JOIN type_visiteur ON visiteur.TYV_CODE=type_visiteur.TYV_CODE";
         
-        try (Statement state = connect.createStatement(); ResultSet result = state.executeQuery(query)){
+        try (Statement state = connect.createStatement(); ResultSet result = state.executeQuery(query))
+        {
             int i=0;
-            while (result.next()){
+            while (result.next())
+            { //Récupération des infos au format souhaité
                 String nom = result.getString("VIS_NOM");
                 String prenom = result.getString("VIS_PRENOM");
                 String adresse = result.getString("VIS_ADRESSE");
@@ -51,7 +54,8 @@ public class VisitorsModel {
                 i++;
             }     
         } 
-        catch(Exception e){
+        catch(Exception e)
+        {
             e.printStackTrace();
             Alert error = new Alert(Alert.AlertType.WARNING);
             error.setTitle("Erreur");

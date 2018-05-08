@@ -30,7 +30,7 @@ import rapports.model.NewReportModel;
  * @author Lucille
  */
 public class NewReportController implements Initializable
-{
+{ //Récupération des id des contrôles
     @FXML private Button cancel;
     @FXML private Button quit;
     @FXML private Button search;
@@ -45,11 +45,12 @@ public class NewReportController implements Initializable
     private Model model;
     private NewReportModel newReportModel;
     
+    //Gestion du clic en fonction de l'id source
     @FXML
     public void handleButtonAction(ActionEvent event) throws IOException
     {
         if(event.getSource()==cancel)
-        {
+        { //Retour sur la liste des rapports en gardant les infos saisies en mémoire
             if(!"".equals(bilan.getText())){
                 newReportModel.setBilan(bilan.getText());
             }
@@ -67,8 +68,7 @@ public class NewReportController implements Initializable
             System.exit(0);
         }
         else if(event.getSource()==search)
-        {
-            System.out.println("on est là");
+        { //Redirection sur la page des praticiens pour en ajouter un au rapport
             Stage stage = (Stage)search.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("view/DoctorsView.fxml"));
             Scene scene = new Scene(root);
@@ -76,7 +76,7 @@ public class NewReportController implements Initializable
             stage.show();
         }
         else if(event.getSource()==validate)
-        {
+        { //Envoi du rapport
             newReportModel.setNumPra();
             newReportModel.setDate(date.getValue().toString());
             newReportModel.setBilan(bilan.getText());
@@ -84,40 +84,48 @@ public class NewReportController implements Initializable
         }
     }
     
+    //Gestion des comboBox et enregistrement des sélections
     @FXML
     public void handleSelectionAction(ActionEvent event)
     {
         if(event.getSource()==med1)
-        {
+        { //Sélection du premier médicament
             newReportModel.setMed1(med1.getSelectionModel().getSelectedItem().toString());
             newReportModel.setNumMed1();
         }
         else if(event.getSource()==med2)
-        {
+        { //Sélection du deuxième médicament
             newReportModel.setMed2(med2.getSelectionModel().getSelectedItem().toString());
             newReportModel.setNumMed2();
         }
         else if(event.getSource()==motive)
-        {
+        { //Sélection du motif
             newReportModel.setMotive(motive.getSelectionModel().getSelectedItem().toString());
             newReportModel.setNumMotive();
         }
     }
+    
+    //Initialisation du contrôleur
     @Override 
     public void initialize(URL url, ResourceBundle rb)
     {
         model = Model.getInstance();
-        model.getConnection();
         newReportModel = model.getNewReportModel();
+        //Affectation des listes adéquates aux combobox
         motive.setItems(newReportModel.resultMotives());
         med1.setItems(newReportModel.resultMeds());
         med2.setItems(newReportModel.resultMeds());
+        
+        //Récupération du prochain numéro de rapport
         num.setText(Integer.toString(newReportModel.setNum()));
+        
+        //Affectation des valeurs aux champs
         praticien.setText(newReportModel.getPraticien());
+        bilan.setText(newReportModel.getBilan());
+        
         med1.getSelectionModel().select(newReportModel.getMed1());
         med2.getSelectionModel().select(newReportModel.getMed2());
         motive.getSelectionModel().select(newReportModel.getMotive());
-        bilan.setText(newReportModel.getBilan());
         if(newReportModel.getDate()!=null)
         {
             date.setValue(LocalDate.parse(newReportModel.getDate(),DateTimeFormatter.ISO_DATE));

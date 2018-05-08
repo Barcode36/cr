@@ -23,17 +23,20 @@ import javafx.stage.Stage;
  */
 public class MenuController implements Initializable
 {
+    //Récupération des id des contrôleurs de la vue
     @FXML private Button reports;
     @FXML private Button visitors;
     @FXML private Button doctors;
     @FXML private Button medicine;
     @FXML private Button quit;
     
+    
+    //Getsion du clic en fonction de la source de l'id
     @FXML
     public void handleButtonAction(ActionEvent event) throws IOException
     {
         if(event.getSource()==reports)
-        {
+        { //Redirection sur la liste des rapports
             Stage stage = (Stage)reports.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("view/ReportView.fxml"));
             Scene scene = new Scene(root);
@@ -41,7 +44,7 @@ public class MenuController implements Initializable
             stage.show();
         }
         else if(event.getSource()==visitors)
-        {
+        { //Redirection sur les visiteurs
             Stage stage = (Stage)visitors.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("view/VisitorsView.fxml"));
             Scene scene = new Scene(root);
@@ -49,7 +52,7 @@ public class MenuController implements Initializable
             stage.show();
         }
         else if(event.getSource()==doctors)
-        {
+        { //Redirection sur les praticiens
             Stage stage = (Stage)doctors.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("view/DoctorsView.fxml"));
             Scene scene = new Scene(root);
@@ -57,7 +60,7 @@ public class MenuController implements Initializable
             stage.show();
         }
         else if(event.getSource()==medicine)
-        {
+        { //Redirection sur les médicaments
             Stage stage = (Stage)medicine.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("view/MedicineView.fxml"));
             Scene scene = new Scene(root);
@@ -73,7 +76,7 @@ public class MenuController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        
+        //Pas besoin d'action particulière
     } 
     
 }
