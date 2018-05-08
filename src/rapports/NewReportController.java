@@ -34,6 +34,7 @@ public class NewReportController implements Initializable
     @FXML private Button cancel;
     @FXML private Button quit;
     @FXML private Button search;
+    @FXML private Button validate;
     @FXML private TextField num;
     @FXML private TextField praticien;
     @FXML private DatePicker date;
@@ -52,7 +53,7 @@ public class NewReportController implements Initializable
             if(!"".equals(bilan.getText())){
                 newReportModel.setBilan(bilan.getText());
             }
-            if(date!=null){
+            if(date.getValue()!=null){
                 newReportModel.setDate(date.getValue().toString());
             }
             Stage stage = (Stage)cancel.getScene().getWindow();
@@ -74,6 +75,13 @@ public class NewReportController implements Initializable
             stage.setScene(scene);
             stage.show();
         }
+        else if(event.getSource()==validate)
+        {
+            newReportModel.setNumPra();
+            newReportModel.setDate(date.getValue().toString());
+            newReportModel.setBilan(bilan.getText());
+            newReportModel.insert();
+        }
     }
     
     @FXML
@@ -82,20 +90,24 @@ public class NewReportController implements Initializable
         if(event.getSource()==med1)
         {
             newReportModel.setMed1(med1.getSelectionModel().getSelectedItem().toString());
+            newReportModel.setNumMed1();
         }
         else if(event.getSource()==med2)
         {
             newReportModel.setMed2(med2.getSelectionModel().getSelectedItem().toString());
+            newReportModel.setNumMed2();
         }
         else if(event.getSource()==motive)
         {
             newReportModel.setMotive(motive.getSelectionModel().getSelectedItem().toString());
+            newReportModel.setNumMotive();
         }
     }
     @Override 
     public void initialize(URL url, ResourceBundle rb)
     {
         model = Model.getInstance();
+        model.getConnection();
         newReportModel = model.getNewReportModel();
         motive.setItems(newReportModel.resultMotives());
         med1.setItems(newReportModel.resultMeds());

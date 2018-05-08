@@ -21,11 +21,11 @@ public class Model {
     private NewReportModel newReportModel;
     // Connexion à la base de donnée
     
-    private Model(){
-        user="vaalrhona_view";
-        passwd="view";
+    private Model(String user, String passwd){
+        this.user = user;
+        this.passwd = passwd;
         url="jdbc:mysql://mysql-vaalrhona.alwaysdata.net/vaalrhona_gsb_cr";
-        // Test du driver et de la connexion si erreur
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver OK");
@@ -33,11 +33,7 @@ public class Model {
             // Instance des objects avec connect en parametre et éxecution des requêtes
             this.connect = DriverManager.getConnection(url, user, passwd);
             this.connexionModel = new ConnexionModel(connect,url,user,passwd);
-            this.doctorsModel = new DoctorsModel(connect);
-            this.medicineModel = new MedicineModel(connect);
-            this.visitorsModel = new VisitorsModel(connect);
-            this.reportModel = new ReportModel(connect);
-            this.newReportModel = new NewReportModel(connect);
+            
         }
         
         catch (Exception e){
@@ -54,7 +50,7 @@ public class Model {
     {
         if (model==null)
         {
-            model = new Model();
+            model = new Model("vaalrhona_view","view");
         }
         return model;
     }
@@ -97,6 +93,27 @@ public class Model {
     public void setPasswd(String passwd)
     {
         this.passwd = passwd;
+    }
+    public void setConnection()
+    {
+        try
+        {
+            System.out.println(connect+" "+user+" "+passwd);
+            connect = DriverManager.getConnection(url,user,passwd);
+            this.doctorsModel = new DoctorsModel(connect);
+            this.medicineModel = new MedicineModel(connect);
+            this.visitorsModel = new VisitorsModel(connect);
+            this.reportModel = new ReportModel(connect);
+            this.newReportModel = new NewReportModel(connect,matricule);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public void getConnection()
+    {
+        System.out.println(connect);
     }
     
     public void setMatricule(String matricule)

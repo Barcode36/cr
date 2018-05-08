@@ -33,8 +33,8 @@
             <Label layoutX="311.0" layoutY="200.0" text="Bilan :" />
             <TextArea fx:id="bilan" layoutX="103.0" layoutY="217.0" mouseTransparent="true" prefHeight="90.0" prefWidth="416.0" wrapText="true" />
             <Label layoutX="274.0" layoutY="311.0" text="Produits présentés :" />
-            <ComboBox layoutX="252.0" layoutY="328.0" mouseTransparent="true" prefWidth="150.0" />
-            <ComboBox layoutX="252.0" layoutY="353.0" mouseTransparent="true" prefWidth="150.0" />
+            <ComboBox fx:id="med1" layoutX="252.0" layoutY="328.0" mouseTransparent="true" prefWidth="150.0" />
+            <ComboBox fx:id="med2" layoutX="252.0" layoutY="353.0" mouseTransparent="true" prefWidth="150.0" />
             <Button fx:id="previous" layoutX="255.0" layoutY="389.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Précédent" />
             <Button fx:id="next" layoutX="347.0" layoutY="389.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Suivant" />
             <Button fx:id="back" layoutX="14.0" layoutY="391.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="64.0" text="Retour" />

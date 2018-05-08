@@ -49,6 +49,7 @@ public class ConnexionController implements Initializable
                     model.setUser(connexionModel.getUser());
                     model.setPasswd(connexionModel.getPasswd());
                     model.setMatricule(connexionModel.getMatricule());
+                    model.setConnection();
                     Stage stage = (Stage) submit.getScene().getWindow();
                     Parent root = FXMLLoader.load(getClass().getResource("view/MenuView.fxml"));
                     Scene scene = new Scene(root);
@@ -86,6 +87,7 @@ public class ConnexionController implements Initializable
                     model.setUser(connexionModel.getUser());
                     model.setPasswd(connexionModel.getPasswd());
                     model.setMatricule(connexionModel.getMatricule());
+                    model.setConnection();
                     Stage stage = (Stage) submit.getScene().getWindow();
                     Parent root = FXMLLoader.load(getClass().getResource("view/MenuView.fxml"));
                     Scene scene = new Scene(root);

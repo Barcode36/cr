@@ -39,6 +39,8 @@ public class ReportController implements Initializable
     @FXML private Button back;
     @FXML private Button newReport;
     @FXML private ComboBox<String> motive;
+    @FXML private ComboBox<String> med1;
+    @FXML private ComboBox<String> med2;
     @FXML private TextField num;
     @FXML private TextField praticien;
     @FXML private DatePicker dateRap;
@@ -66,7 +68,11 @@ public class ReportController implements Initializable
                 dateRap.setValue(LocalDate.parse(row.get(2), DateTimeFormatter.ISO_DATE));
                 bilan.setText(row.get(4));
                 motive.setItems(row);
+                med1.setItems(row);
+                med2.setItems(row);
                 motive.getSelectionModel().select(3);
+                med1.getSelectionModel().select(5);
+                med2.getSelectionModel().select(6);
             }
         }
         else if(event.getSource()==next)
@@ -79,7 +85,11 @@ public class ReportController implements Initializable
                 dateRap.setValue(LocalDate.parse(row.get(2), DateTimeFormatter.ISO_DATE));
                 bilan.setText(row.get(4));
                 motive.setItems(row);
+                med1.setItems(row);
+                med2.setItems(row);
                 motive.getSelectionModel().select(3);
+                med1.getSelectionModel().select(5);
+                med2.getSelectionModel().select(6);
             }
         }
         else if(event.getSource()==back)
@@ -113,6 +123,11 @@ public class ReportController implements Initializable
         dateRap.setValue(LocalDate.parse(row.get(2), DateTimeFormatter.ISO_DATE));
         bilan.setText(row.get(4));
         motive.setItems(row);
+        med1.setItems(row);
+        med2.setItems(row);
         motive.getSelectionModel().select(3);
+        med1.getSelectionModel().select(5);
+        med2.getSelectionModel().select(6);
+        
     } 
 }
