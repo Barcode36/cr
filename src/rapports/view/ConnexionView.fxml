@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="626.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rapports.ConnexionController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="626.0" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rapports.ConnexionController">
    <children>
       <AnchorPane prefHeight="448.0" prefWidth="626.0">
          <children>
@@ -17,10 +17,10 @@
                   <Font name="Trebuchet MS Bold" size="23.0" />
                </font>
             </Label>
-            <TextField fx:id="user" layoutX="239.0" layoutY="189.0" promptText="Nom d'utilisateur" onKeyPressed="#handleKeyPress"/>
-            <PasswordField fx:id="password" layoutX="239.0" layoutY="221.0" promptText="Mot de passe" onKeyPressed="#handleKeyPress"/>
-            <Button fx:id="submit" layoutX="287.0" layoutY="259.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Valider" />
-            <Button fx:id="quit" layoutX="558.0" layoutY="389.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Quitter" />
+            <TextField fx:id="user" accessibleText="Insérer le nom d'utilisateur" layoutX="239.0" layoutY="189.0" onKeyPressed="#handleKeyPress" promptText="Nom d'utilisateur" />
+            <PasswordField fx:id="password" accessibleText="Insérer le mot de passe" layoutX="239.0" layoutY="221.0" onKeyPressed="#handleKeyPress" promptText="Mot de passe" />
+            <Button fx:id="submit" accessibleText="Valider" layoutX="287.0" layoutY="259.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Valider" />
+            <Button fx:id="quit" accessibleText="Quitter" layoutX="558.0" layoutY="389.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Quitter" />
             <Label fx:id="error" alignment="CENTER" contentDisplay="CENTER" layoutX="163.0" layoutY="164.0" prefHeight="17.0" prefWidth="302.0" textFill="RED" />
          </children>
       </AnchorPane>

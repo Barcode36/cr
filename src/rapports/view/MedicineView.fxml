@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="626.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rapports.MedicineController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="626.0" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rapports.MedicineController">
    <children>
       <AnchorPane prefHeight="453.0" prefWidth="600.0">
          <children>
@@ -26,9 +26,9 @@
                <contextMenu>
                   <ContextMenu>
                     <items>
-                      <MenuItem fx:id="med" mnemonicParsing="false" text="Ajouter au rapport" onAction="#handleButtonAction"/>
-                      <MenuItem fx:id="remp1" mnemonicParsing="false" text="Remplacer " onAction="#handleButtonAction" visible="false"/>
-                      <MenuItem fx:id="remp2" mnemonicParsing="false" text="Remplacer " onAction="#handleButtonAction" visible="false"/>
+                      <MenuItem fx:id="med" mnemonicParsing="false" onAction="#handleButtonAction" text="Ajouter au rapport" />
+                      <MenuItem fx:id="remp1" mnemonicParsing="false" onAction="#handleButtonAction" text="Remplacer " visible="false" />
+                      <MenuItem fx:id="remp2" mnemonicParsing="false" onAction="#handleButtonAction" text="Remplacer " visible="false" />
                     </items>
                   </ContextMenu>
                </contextMenu></ListView>

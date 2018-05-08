@@ -65,7 +65,6 @@ public class ReportController implements Initializable
             if(index>0){
                 index--;
                 ObservableList<String> row = FXCollections.observableArrayList(data.get(index));
-                System.out.println(data.get(index));
                 num.setText(row.get(0));
                 praticien.setText(row.get(1));
                 dateRap.setValue(LocalDate.parse(row.get(2), DateTimeFormatter.ISO_DATE));

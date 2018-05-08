@@ -44,6 +44,7 @@ public class DoctorsController implements Initializable
     @FXML private TableColumn<ObservableList,Number> pop;
     @FXML private TableColumn<ObservableList,String> work;
     @FXML private MenuItem addDoctor;
+    @FXML private Button report;
   //Récupération des data du modèle
     private ObservableList<ObservableList> data;
     private Model model;
@@ -65,9 +66,26 @@ public class DoctorsController implements Initializable
         {
             System.exit(0);
         }
-        else if(event.getSource()==addDoctor)
+        else if(event.getSource()==addDoctor || event.getSource()==report)
         { //Clic droit pour afficher le menu contextuel et ajout au rapport : 
           //redirection vers un nouveau rapport avec le champ praticien rempli
+            model.getNewReportModel().setPraticien( //On récupère les données des colonnes concernées sélectionnées
+                    name.getCellData(table.getSelectionModel().getFocusedIndex())+" "+
+                    fname.getCellData(table.getSelectionModel().getFocusedIndex()));
+            Stage stage = (Stage)back.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("view/NewReportView.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+    }
+    
+    @FXML
+    public void handleSelectionAction(MouseEvent event) throws IOException
+    {
+        report.setDisable(false);
+        if(event.getButton()==MouseButton.PRIMARY && event.getClickCount()==2)
+        {
             model.getNewReportModel().setPraticien( //On récupère les données des colonnes concernées sélectionnées
                     name.getCellData(table.getSelectionModel().getFocusedIndex())+" "+
                     fname.getCellData(table.getSelectionModel().getFocusedIndex()));

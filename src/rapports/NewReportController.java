@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -80,7 +81,14 @@ public class NewReportController implements Initializable
             newReportModel.setNumPra();
             newReportModel.setDate(date.getValue().toString());
             newReportModel.setBilan(bilan.getText());
-            newReportModel.insert();
+            if(newReportModel.insert())
+            {
+                Alert success = new Alert(Alert.AlertType.INFORMATION);
+                success.setTitle("Ajout effectué");
+                success.setHeaderText("Rapport ajouté");
+                success.setContentText("Le rapport a bien été enregistré.");
+                success.showAndWait();
+            }
         }
     }
     

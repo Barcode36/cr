@@ -25,6 +25,7 @@ public class Rapports extends Application
         
         Scene scene = new Scene(root);
         
+        stage.setTitle("GSB - Gestion des Rapports de Visite");
         stage.setScene(scene);
         stage.show();
     }

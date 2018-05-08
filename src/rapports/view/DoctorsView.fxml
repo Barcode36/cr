@@ -19,9 +19,9 @@
                   <Font name="Trebuchet MS Bold" size="20.0" />
                </font>
             </Label>
-            <TableView fx:id="table" layoutX="6.0" layoutY="56.0" prefHeight="317.0" prefWidth="615.0">
+            <TableView fx:id="table" layoutX="6.0" layoutY="56.0" prefHeight="317.0" prefWidth="615.0" onMouseClicked="#handleSelectionAction">
               <columns>
-                <TableColumn fx:id="name" prefWidth="86.0" text="Nom" />
+                <TableColumn fx:id="name" prefWidth="86.0" text="Nom"/>
                 <TableColumn fx:id="fname" prefWidth="79.0" text="Prénom" />
                   <TableColumn fx:id="address" prefWidth="261.0" text="Adresse" />
                   <TableColumn fx:id="pop" prefWidth="66.0" text="Notoriété" />
@@ -37,6 +37,7 @@
             </TableView>
             <Button fx:id="quit" layoutX="558.0" layoutY="389.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Quitter" />
             <Button fx:id="back" layoutX="14.0" layoutY="389.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Retour" />
+            <Button fx:id="report" disable="true" layoutX="259.0" layoutY="389.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Etablir un rapport" />
          </children>
       </AnchorPane>
    </children>

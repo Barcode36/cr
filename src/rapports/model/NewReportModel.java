@@ -64,17 +64,26 @@ public class NewReportModel {
     }
     
   //Insertion du rapport dans la DB
-    public void insert()
+    public boolean insert()
     {
         query = "INSERT INTO rapport_visite(VIS_MATRICULE,RAP_NUM,PRA_NUM,RAP_DATE,RAP_BILAN,TYM_CODE,RAP_MOTIF,RAP_MED1,RAP_MED2) VALUES("
                 +matricule+","+num+","+numPra+","+date+","+bilan+","+numMotive+",null,"+numMed1+","+numMed2+")";
         try (Statement state = connect.createStatement())
         {
-            state.executeUpdate(query);
+            int result = state.executeUpdate(query);
+            if(result>0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         catch(Exception e)
         {
             e.printStackTrace();
+            return false;
         }
     }
     
