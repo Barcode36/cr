@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="626.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rapports.DoctorsController">
+   <children>
+      <AnchorPane prefHeight="453.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="259.0" layoutY="23.0" text="Praticiens">
+               <font>
+                  <Font name="Trebuchet MS Bold" size="20.0" />
+               </font>
+            </Label>
+            <TableView fx:id="table" layoutX="6.0" layoutY="56.0" prefHeight="317.0" prefWidth="615.0" onMouseClicked="#handleSelectionAction">
+              <columns>
+                <TableColumn fx:id="name" prefWidth="86.0" text="Nom"/>
+                <TableColumn fx:id="fname" prefWidth="79.0" text="Prénom" />
+                  <TableColumn fx:id="address" prefWidth="261.0" text="Adresse" />
+                  <TableColumn fx:id="pop" prefWidth="66.0" text="Notoriété" />
+                  <TableColumn fx:id="work" prefWidth="108.0" text="Exercice" />
+              </columns>
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem fx:id="addDoctor" mnemonicParsing="false" onAction="#handleButtonAction" text="Etablir un rapport" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
+            </TableView>
+            <Button fx:id="quit" layoutX="558.0" layoutY="389.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Quitter" />
+            <Button fx:id="back" layoutX="14.0" layoutY="389.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Menu" />
+            <Button fx:id="report" disable="true" layoutX="259.0" layoutY="389.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Etablir un rapport" />
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
