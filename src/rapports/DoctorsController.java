@@ -69,14 +69,7 @@ public class DoctorsController implements Initializable
         else if(event.getSource()==addDoctor || event.getSource()==report)
         { //Clic droit pour afficher le menu contextuel et ajout au rapport : 
           //redirection vers un nouveau rapport avec le champ praticien rempli
-            model.getNewReportModel().setPraticien( //On récupère les données des colonnes concernées sélectionnées
-                    name.getCellData(table.getSelectionModel().getFocusedIndex())+" "+
-                    fname.getCellData(table.getSelectionModel().getFocusedIndex()));
-            Stage stage = (Stage)back.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("view/NewReportView.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+           fillAndRedirect();
         }
     }
     
@@ -86,7 +79,14 @@ public class DoctorsController implements Initializable
         report.setDisable(false);
         if(event.getButton()==MouseButton.PRIMARY && event.getClickCount()==2)
         {
-            model.getNewReportModel().setPraticien( //On récupère les données des colonnes concernées sélectionnées
+            fillAndRedirect();
+        }
+    }
+    
+    //Sélection du praticien et redirection
+    public void fillAndRedirect() throws IOException
+    {
+        model.getNewReportModel().setPraticien( //On récupère les données des colonnes concernées sélectionnées
                     name.getCellData(table.getSelectionModel().getFocusedIndex())+" "+
                     fname.getCellData(table.getSelectionModel().getFocusedIndex()));
             Stage stage = (Stage)back.getScene().getWindow();
@@ -94,8 +94,8 @@ public class DoctorsController implements Initializable
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        }
     }
+    
     //Initialisation du contrôleur
     @Override 
     public void initialize(URL url, ResourceBundle rb)

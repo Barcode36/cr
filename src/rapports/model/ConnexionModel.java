@@ -51,8 +51,8 @@ public class ConnexionModel {
         }
         catch (Exception e){
             Alert error = new Alert(Alert.AlertType.WARNING);
-            error.setTitle("Erreur");
-            error.setHeaderText(null);
+            error.setTitle("Erreur d'accès au serveur");
+            error.setHeaderText("La base de données est inaccessible.");
             error.setContentText("Une erreur a été rencontrée, veuillez réessayer plus tard.");
             error.showAndWait();
             e.printStackTrace();

@@ -64,54 +64,51 @@ public class ReportController implements Initializable
         { //Affichage du rapport précédent si il y en a un
             if(index>0){
                 index--;
-                ObservableList<String> row = FXCollections.observableArrayList(data.get(index));
-                num.setText(row.get(0));
-                praticien.setText(row.get(1));
-                dateRap.setValue(LocalDate.parse(row.get(2), DateTimeFormatter.ISO_DATE));
-                bilan.setText(row.get(4));
-                motive.setItems(row);
-                med1.setItems(row);
-                med2.setItems(row);
-                motive.getSelectionModel().select(3);
-                med1.getSelectionModel().select(5);
-                med2.getSelectionModel().select(6);
+                fill(index);
             }
         }
         else if(event.getSource()==next)
         { //Affichage du rapport suivant s'il y en a un
             if(index<data.size()-1){
                 index++;
-                ObservableList<String> row = FXCollections.observableArrayList(data.get(index));
-                num.setText(row.get(0));
-                praticien.setText(row.get(1));
-                dateRap.setValue(LocalDate.parse(row.get(2), DateTimeFormatter.ISO_DATE));
-                bilan.setText(row.get(4));
-                motive.setItems(row);
-                med1.setItems(row);
-                med2.setItems(row);
-                motive.getSelectionModel().select(3);
-                med1.getSelectionModel().select(5);
-                med2.getSelectionModel().select(6);
+                fill(index);
             }
         }
         else if(event.getSource()==back)
         { //Retour au menu principal
-            Stage stage = (Stage)back.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("view/MenuView.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            redirect("Menu");
         }
         else if(event.getSource()==newReport)
         { //Ouverture d'un nouveau rapport
-            Stage stage = (Stage)newReport.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("view/NewReportView.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            redirect("NewReport");
         }
     }
     
+    //Redirection
+    public void redirect(String view) throws IOException
+    {
+        Stage stage = (Stage)newReport.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("view/"+view+"View.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    //Remplissage du rapport
+    public void fill(int index)
+    {
+        ObservableList<String> row = FXCollections.observableArrayList(data.get(index));
+        num.setText(row.get(0));
+        praticien.setText(row.get(1));
+        dateRap.setValue(LocalDate.parse(row.get(2), DateTimeFormatter.ISO_DATE));
+        bilan.setText(row.get(4));
+        motive.setItems(row);
+        med1.setItems(row);
+        med2.setItems(row);
+        motive.getSelectionModel().select(3);
+        med1.getSelectionModel().select(5);
+        med2.getSelectionModel().select(6);
+    }
     //Initialisation du contrôleur
     @Override 
     public void initialize(URL url, ResourceBundle rb)
@@ -121,20 +118,7 @@ public class ReportController implements Initializable
         data = reportModel.result();
         index = 0;
         //Récupération de la liste du rapport actuel et distribution des infos dans les champs
-        ObservableList<String> row = FXCollections.observableArrayList(data.get(index));
-        num.setText(row.get(0));
-        praticien.setText(row.get(1));
-        dateRap.setValue(LocalDate.parse(row.get(2), DateTimeFormatter.ISO_DATE));
-        bilan.setText(row.get(4));
-        
-        //On garde la même liste pour ne pas en créer une d'un seul item
-        motive.setItems(row);
-        med1.setItems(row);
-        med2.setItems(row);
-        //Et on sélectionne l'item approprié
-        motive.getSelectionModel().select(3);
-        med1.getSelectionModel().select(5);
-        med2.getSelectionModel().select(6);
+        fill(index);
         
     } 
 }

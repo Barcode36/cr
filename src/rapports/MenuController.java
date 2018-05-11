@@ -37,40 +37,34 @@ public class MenuController implements Initializable
     {
         if(event.getSource()==reports)
         { //Redirection sur la liste des rapports
-            Stage stage = (Stage)reports.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("view/ReportView.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            redirect("Report");
         }
         else if(event.getSource()==visitors)
         { //Redirection sur les visiteurs
-            Stage stage = (Stage)visitors.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("view/VisitorsView.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            redirect("Visitors");
         }
         else if(event.getSource()==doctors)
         { //Redirection sur les praticiens
-            Stage stage = (Stage)doctors.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("view/DoctorsView.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            redirect("Doctors");
         }
         else if(event.getSource()==medicine)
         { //Redirection sur les médicaments
-            Stage stage = (Stage)medicine.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("view/MedicineView.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            redirect("Medicine");
         }
         else if(event.getSource()==quit)
         {
             System.exit(0);
         }
+    }
+    
+   //Méthode de redirection
+    public void redirect(String view) throws IOException
+    {
+        Stage stage = (Stage)reports.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("view/"+view+"View.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
     
     @Override

@@ -8,9 +8,11 @@ package rapports.model;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -236,7 +238,24 @@ public class NewReportModel {
     }
     public void setBilan(String bilan)
     {
-        this.bilan = "'"+bilan+"'";
+        if(bilan!=null)
+        {
+            if(bilan.contains("'"))
+            {
+                String[] replace = bilan.split(Pattern.quote("'"));
+                bilan = StringUtils.join(replace, "\\'");
+            }
+            if(bilan.contains("\""))
+            {
+                String[] replace = bilan.split(Pattern.quote("\""));
+                bilan = StringUtils.join(replace, "\\\"");
+            }
+            this.bilan = "'"+bilan+"'";
+        }
+        else
+        {
+            this.bilan = null;
+        }
     }
     
     public String getBilan()
@@ -246,7 +265,7 @@ public class NewReportModel {
     
     public void setDate(String date)
     {
-        this.date = "'"+date+"'";
+        this.date = (date!=null)?"'"+date+"'":null;
     }
     
     public String getDate()
@@ -254,6 +273,17 @@ public class NewReportModel {
         return date;
     }
     
+   //Réinitialise le modèle
+    public void clean(){
+        this.date = null;
+        this.bilan = null;
+        this.med1 = null;
+        this.numMed1 = null;
+        this.med2 = null;
+        this.numMed2 = null;
+        this.motive = null;
+        this.praticien = null;
+    }
   //Récupère le numéro du motif de visite
     public void setNumMotive()
     {

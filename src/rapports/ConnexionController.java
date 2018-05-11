@@ -36,6 +36,7 @@ public class ConnexionController implements Initializable
     @FXML private Button quit;
     @FXML private Label error;
     private Model model;
+    private ConnexionModel connexionModel;
        
     //Gestion du clic
     @FXML
@@ -43,32 +44,7 @@ public class ConnexionController implements Initializable
     { //En fonction de la source du clic, grâce à l'id du bouton, on gère l'action
         if (event.getSource()==submit)
         {
-            if(!"".equals(user.getText()) && !"".equals(password.getText()))
-            {
-                ConnexionModel connexionModel = model.getConnexionModel();
-                if(connexionModel.connect(user.getText(), password.getText()))
-                { //On renseigne le modèle avec les infos de connexion et on charge le menu
-                    model.setUser(connexionModel.getUser());
-                    model.setPasswd(connexionModel.getPasswd());
-                    model.setMatricule(connexionModel.getMatricule());
-                    model.setConnection();
-                    Stage stage = (Stage) submit.getScene().getWindow();
-                    Parent root = FXMLLoader.load(getClass().getResource("view/MenuView.fxml"));
-                    Scene scene = new Scene(root);
-                    stage.setScene(scene);
-                    stage.show();
-                }
-                else
-                {
-                    error.setText("Identifiant et/ou mot de passe incorrect(s)");
-                    user.clear();
-                    password.clear();
-                }
-            }
-            else
-            {
-                error.setText("Merci de remplir tous les champs");
-            }
+            verify();
         }
         else if (event.getSource()==quit)
         {
@@ -82,40 +58,47 @@ public class ConnexionController implements Initializable
     {
         if(event.getCode()==KeyCode.ENTER)
         {
-            if(!"".equals(user.getText()) && !"".equals(password.getText()))
+            verify();
+        }
+            
+    }
+    
+    //Méthode de vérification des infos
+    public void verify() throws IOException
+    {
+        if(!"".equals(user.getText()) && !"".equals(password.getText()))
+        {
+            model = Model.getInstance();
+            connexionModel = model.getConnexionModel();
+            if(connexionModel.connect(user.getText(), password.getText()))
             {
-                ConnexionModel connexionModel = model.getConnexionModel();
-                if(connexionModel.connect(user.getText(), password.getText()))
-                {
-                    model.setUser(connexionModel.getUser());
-                    model.setPasswd(connexionModel.getPasswd());
-                    model.setMatricule(connexionModel.getMatricule());
-                    model.setConnection();
-                    Stage stage = (Stage) submit.getScene().getWindow();
-                    Parent root = FXMLLoader.load(getClass().getResource("view/MenuView.fxml"));
-                    Scene scene = new Scene(root);
-                    stage.setScene(scene);
-                    stage.show();
-                }
-                else
-                {
-                    error.setText("Identifiant et/ou mot de passe incorrect(s)");
-                    user.clear();
-                    password.clear();
-                }
+                model.setUser(connexionModel.getUser());
+                model.setPasswd(connexionModel.getPasswd());
+                model.setMatricule(connexionModel.getMatricule());
+                model.setConnection();
+                Stage stage = (Stage) submit.getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getResource("view/MenuView.fxml"));
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
             }
             else
             {
-                error.setText("Merci de remplir tous les champs");
+                error.setText("Identifiant et/ou mot de passe incorrect(s)");
+                password.clear();
+                password.requestFocus();
             }
         }
+        else
+        {
+            error.setText("Merci de remplir tous les champs");
+        }
     }
-    
     //Méthode qui initialise le contrôleur
     @Override
     public void initialize(URL url, ResourceBundle rb)
-    { //Modèle en singleton, on récupère l'objet
-        model = Model.getInstance();
+    {
+        
     } 
 
 }

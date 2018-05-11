@@ -20,6 +20,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -43,6 +44,7 @@ public class NewReportController implements Initializable
     @FXML private ComboBox med1;
     @FXML private ComboBox med2;
     @FXML private TextArea bilan;
+    @FXML private Label mandatory;
     private Model model;
     private NewReportModel newReportModel;
     
@@ -59,7 +61,7 @@ public class NewReportController implements Initializable
                 newReportModel.setDate(date.getValue().toString());
             }
             Stage stage = (Stage)cancel.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("view/ReportView.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("view/MenuView.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -78,16 +80,42 @@ public class NewReportController implements Initializable
         }
         else if(event.getSource()==validate)
         { //Envoi du rapport
-            newReportModel.setNumPra();
-            newReportModel.setDate(date.getValue().toString());
-            newReportModel.setBilan(bilan.getText());
-            if(newReportModel.insert())
+            boolean dateValue = (date.getValue()!=null);
+            boolean praticienValue = (praticien.getText()!=null);
+            boolean motiveValue = (motive.getSelectionModel().getSelectedIndex()>-1);
+            boolean bilanValue = (bilan.getText()!=null);
+            if(dateValue && praticienValue && motiveValue && bilanValue)
             {
-                Alert success = new Alert(Alert.AlertType.INFORMATION);
-                success.setTitle("Ajout effectué");
-                success.setHeaderText("Rapport ajouté");
-                success.setContentText("Le rapport a bien été enregistré.");
-                success.showAndWait();
+                newReportModel.setNumPra();
+                newReportModel.setDate(date.getValue().toString());
+                newReportModel.setBilan(bilan.getText());
+                if(newReportModel.insert())
+                {
+                    Alert success = new Alert(Alert.AlertType.INFORMATION);
+                    success.setTitle("Ajout effectué");
+                    success.setHeaderText("Rapport ajouté");
+                    success.setContentText("Le rapport a bien été enregistré.");
+                    success.showAndWait();
+                    newReportModel.clean();
+                    Stage stage = (Stage)validate.getScene().getWindow();
+                    Parent root = FXMLLoader.load(getClass().getResource("view/NewReportView.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                }
+                else
+                {
+                    Alert error = new Alert(Alert.AlertType.ERROR);
+                    error.setTitle("Ajout non effectué");
+                    error.setHeaderText("Rapport n'a pas été ajouté");
+                    error.setContentText("Une erreur a été rencontrée et le rapport n'a pas été ajouté.");
+                    error.showAndWait();
+                    
+                }
+            }
+            else
+            {
+                mandatory.setText("Les champs * sont obligatoires");
             }
         }
     }

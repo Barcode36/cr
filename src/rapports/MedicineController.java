@@ -105,12 +105,7 @@ public class MedicineController implements Initializable
     public void handleMouseClick(MouseEvent event)
     {
         int index=list.getSelectionModel().getSelectedIndex();
-        ObservableList<String> row = FXCollections.observableArrayList(data.get(index));
-        code.setText(row.get(0));
-        fam.setText(row.get(2));
-        compo.setText(row.get(3));
-        effet.setText(row.get(4));
-        contre.setText(row.get(5));
+        fill(index);
     }
     
     //Pour pouvoir naviguer avec les flèches haut et bas dynamiquement
@@ -125,6 +120,12 @@ public class MedicineController implements Initializable
         {
             index--;
         }
+        fill(index);
+    }
+    
+   //Remplissage des champs
+    public void fill(int index)
+    {
         ObservableList<String> row = FXCollections.observableArrayList(data.get(index));
         code.setText(row.get(0));
         fam.setText(row.get(2));
@@ -132,7 +133,6 @@ public class MedicineController implements Initializable
         effet.setText(row.get(4));
         contre.setText(row.get(5));
     }
-    
     //Initialisation du contrôleur
     @Override
     public void initialize(URL url, ResourceBundle rb)
